@@ -1,5 +1,5 @@
 # vim: syntax=screen
-escape ^^^
+#escape ^^^
 vbell on
 autodetach on
 startup_message off
@@ -60,6 +60,7 @@ bind 'K' kill
 bind 'I' login on
 bind 'O' login off
 bind '}' history
+bind 'Q' quit
 
 bind -k kl focus left
 bind -k kr focus right
@@ -73,27 +74,30 @@ register [ "\033:se noai\015a"
 register ] "\033:se ai\015a"
 bind ^] paste [.]
 
-screen -t state0 0 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13330
-screen -t state1 1 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13331
-screen -t state2 2 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13332
-screen -t state3 3 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13333
-screen -t state4 4 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13334
-screen -t state5 5 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13335
-screen -t state6 6 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13336
-screen -t state7 7 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13337
-screen -t state8 8 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13338
-screen -t state9 9 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13339
-screen -t stateA 10 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13340
-screen -t stateB 11 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13341
-screen -t stateC 12 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13342
-screen -t stateD 13 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13343
-screen -t stateE 14 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13344
-screen -t stateF 15 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13345
-screen -t stateG 16 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13346
-screen -t stateH 17 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13347
-screen -t stateI 18 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13348
-screen -t stateJ 19 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13349
-screen -t stateK 20 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13350
-screen -t stateL 21 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13351
-screen -t stateM 22 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13352
-screen -t stateN 23 ./lambda_state_server.py -c /tmp/ca_cert.pem -s /tmp/server_cert.pem -k /tmp/server_key.pem -t 13353
+caption always "%{= bb}%{+b w}%n %t %h %=%l %H %c"
+hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+
+screen -t state0 0 ./lambda_state_server.py -t 13330
+screen -t state1 1 ./lambda_state_server.py -t 13331
+screen -t state2 2 ./lambda_state_server.py -t 13332
+screen -t state3 3 ./lambda_state_server.py -t 13333
+screen -t state4 4 ./lambda_state_server.py -t 13334
+screen -t state5 5 ./lambda_state_server.py -t 13335
+screen -t state6 6 ./lambda_state_server.py -t 13336
+screen -t state7 7 ./lambda_state_server.py -t 13337
+screen -t state8 8 ./lambda_state_server.py -t 13338
+screen -t state9 9 ./lambda_state_server.py -t 13339
+screen -t stateA 10 ./lambda_state_server.py -t 13340
+screen -t stateB 11 ./lambda_state_server.py -t 13341
+screen -t stateC 12 ./lambda_state_server.py -t 13342
+screen -t stateD 13 ./lambda_state_server.py -t 13343
+screen -t stateE 14 ./lambda_state_server.py -t 13344
+screen -t stateF 15 ./lambda_state_server.py -t 13345
+screen -t stateG 16 ./lambda_state_server.py -t 13346
+screen -t stateH 17 ./lambda_state_server.py -t 13347
+screen -t stateI 18 ./lambda_state_server.py -t 13348
+screen -t stateJ 19 ./lambda_state_server.py -t 13349
+screen -t stateK 20 ./lambda_state_server.py -t 13350
+screen -t stateL 21 ./lambda_state_server.py -t 13351
+screen -t stateM 22 ./lambda_state_server.py -t 13352
+screen -t stateN 23 ./lambda_state_server.py -t 13353

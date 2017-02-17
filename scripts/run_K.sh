@@ -1,7 +1,9 @@
 #!/bin/bash
 
-. env_setup
-. k_fn_name
+set -e
+
+. ~/excamera-results/scripts/env_setup
+. ~/excamera-results/scripts/k_fn_name
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
     echo "Usage: $0 kf_dist n_workers n_offset y_val"
@@ -9,6 +11,7 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
 fi
 
 PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+MU_ROOT=/home/excamera/git/github.com/mu/src/lambdaize/
 
 KFDIST=$1
 NWORKERS=$2
@@ -63,7 +66,7 @@ echo -en "\033]0; ${REGION} ${LOGFILESUFFIX//_/ }\a"
 set -u
 
 if [ -z "$SSIM_ONLY" ]; then
-    ./${XCENC_EXEC}_server.py \
+    ${MU_ROOT}${XCENC_EXEC}_server.py \
         ${DEBUG} \
         ${UPLOAD} \
         ${FRAME_SWITCH} \
@@ -81,11 +84,12 @@ if [ -z "$SSIM_ONLY" ]; then
         -T ${STATEPORT} \
         -R ${STATETHREADS} \
         -H ${PUBLIC_IP} \
-        -O logs/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log
+        -O logs/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log \
+        -M
 fi
 
 if [ $? = 0 ] && [ ! -z "${UPLOAD}" ]; then
-    ./${DUMP_EXEC}_server.py \
+    ${MU_ROOT}${DUMP_EXEC}_server.py \
         ${DEBUG} \
         -n ${NWORKERS} \
         -o ${NOFFSET} \
