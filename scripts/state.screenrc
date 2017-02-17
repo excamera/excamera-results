@@ -33,7 +33,7 @@ termcapinfo xterm 'vi=\E[?25l:ve=\E[34h\E[?25h:vs=\E[34l'
 
 # emulate part of the 'K' charset
 termcapinfo   xterm 'XC=K%,%\E(B,[\304,\\\\\326,]\334,{\344,|\366,}\374,~\337'
-
+i
 # xterm-52 tweaks:
 # - uses background color for delete operations
 termcapinfo xterm ut
