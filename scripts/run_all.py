@@ -12,7 +12,7 @@ if len(sys.argv) != 6:
 
 def runcommand(command):
     print(command)
-    os.system(command)
+    return os.system(command)
 
 TOTAL_CHUNKS = 3551
 
