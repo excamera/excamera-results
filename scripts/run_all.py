@@ -23,7 +23,7 @@ end = int(sys.argv[4])
 
 NUM_WORKERS = [min(888, TOTAL_CHUNKS - i * 888) for i in range(4)]
 
-with open("run_log", "w") as runlog:
+with open("run_log_%s" % time.time(), "w") as runlog:
     for quality_level in range(start, end, 2):
         for i in range(4):
             try_count = 0
@@ -38,10 +38,12 @@ with open("run_log", "w") as runlog:
                                                  quality=quality_level))
 
                 if retval != 0:
-                    if try_count >= 3:
+                    if try_count >= 5:
                         runlog.write("Failed: {} -> {}\n".format(quality_level, i))
                         break
 
                 else:
                     runlog.write("Succeed: {} -> {}\n".format(quality_level, i))
                     break
+
+        runlog.write("\n")
