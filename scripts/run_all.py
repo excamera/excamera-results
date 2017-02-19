@@ -14,7 +14,7 @@ def runcommand(command):
     print(command)
     return os.system(command)
 
-TOTAL_CHUNKS = 3551
+TOTAL_CHUNKS = 3552
 
 RUN_K = "REGION={region} ~/excamera-results/scripts/run_K.sh {kfdist} {nworkers} {offset} {quality}"
 
