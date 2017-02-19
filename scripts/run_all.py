@@ -5,9 +5,10 @@ from __future__ import print_function
 import os
 import sys
 import time
+import math
 
-if len(sys.argv) != 7:
-    print("usage: run_all.py <kfdist> <chunksize> <quality_start> <quality_end> <quality_step> <region>")
+if len(sys.argv) != 8:
+    print("usage: run_all.py <kfdist> <chunksize> <quality_start> <quality_end> <quality_step> <region> <nworkers>")
     sys.exit(1)
 
 def runcommand(command):
@@ -22,13 +23,14 @@ num_frames = int(sys.argv[2])
 start = int(sys.argv[3])
 end = int(sys.argv[4])
 step = int(sys.argv[5])
+nworkers = int(sys.argv[7])
 
 if num_frames == 12:
     TOTAL_CHUNKS /= 2
 elif num_frames == 24:
     TOTAL_CHUNKS /= 4
 
-NUM_WORKERS = [min(888, TOTAL_CHUNKS - i * 888) for i in range(TOTAL_CHUNKS / 888)]
+NUM_WORKERS = [min(nworkers, TOTAL_CHUNKS - i * nworkers) for i in range(int(math.ceil(1.0 * TOTAL_CHUNKS / nworkers)))]
 
 with open("run_log_%s" % time.time(), "w") as runlog:
     for quality_level in range(start, end + 1, step):

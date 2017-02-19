@@ -51,7 +51,11 @@ FRAME_STR=$(printf "_%02d" $NUM_FRAMES)
 if [ -z "$SEVEN_FRAMES" ]; then
     VID_SUFFIX=$FRAME_STR
     XCENC_EXEC="xcenc"
-    DUMP_EXEC="dump_ssim"
+    if [ "$NUM_FRAMES" -eq "6" ]; then
+        DUMP_EXEC="dump_ssim"
+    else
+        DUMP_EXEC="split12_dump_ssim"
+    fi
     FRAME_SWITCH=""
 else
     VID_SUFFIX=""
@@ -84,8 +88,7 @@ if [ -z "$SSIM_ONLY" ]; then
         -T ${STATEPORT} \
         -R ${STATETHREADS} \
         -H ${PUBLIC_IP} \
-        -O logs/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log \
-        -M
+        -O logs/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log
 fi
 
 if [ $? = 0 ] && [ ! -z "${UPLOAD}" ]; then
