@@ -8,7 +8,7 @@ import time
 import math
 
 if len(sys.argv) != 8:
-    print("usage: {} <kfdist> <chunksize> <quality_start> <quality_end> <quality_step> <region> <nworkers>".format(sys.argv[0])
+    print("usage: {} <kfdist> <chunksize> <quality_start> <quality_end> <quality_step> <region> <nworkers>".format(sys.argv[0]))
     sys.exit(1)
 
 def runcommand(command):
