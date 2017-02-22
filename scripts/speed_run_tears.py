@@ -12,6 +12,7 @@ if len(sys.argv) != 3:
 
 def runcommand(command):
     print(command)
+    time.sleep(10)
     return os.system(command)
 
 y_values = (
@@ -39,7 +40,7 @@ if idx > 3:
     sys.exit(1)
 
 TOTAL_CHUNKS = 2936
-REPEAT_TIMES = 10
+REPEAT_TIMES = 5
 RUN_K = "NOUPLOAD=1 REGION={region} FRAMES={num_frames} ~/excamera-results/scripts/run_K_tears.sh {kfdist} {nworkers} {offset} {quality}"
 
 NUM_WORKERS = [736, 736, 736, 728]
