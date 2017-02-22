@@ -64,7 +64,9 @@ else
     FRAME_SWITCH="-f $NUM_FRAMES"
 fi
 
-mkdir -p logs
+LOGDIR=$(printf "tears-s%02d_k%02d-logs" ${NUM_FRAMES} ${KFDIST})
+
+mkdir -p ${LOGDIR}
 LOGFILESUFFIX=k${KFDIST}_n${NWORKERS}_o${NOFFSET}_y${YVAL}_$(date +%F-%H:%M:%S)
 echo -en "\033]0; ${REGION} ${LOGFILESUFFIX//_/ }\a"
 set -u
@@ -88,7 +90,7 @@ if [ -z "$SSIM_ONLY" ]; then
         -T ${STATEPORT} \
         -R ${STATETHREADS} \
         -H ${PUBLIC_IP} \
-        -O logs/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log \
+        -O ${LOGDIR}/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log \
         -M
 fi
 
@@ -106,6 +108,6 @@ if [ $? = 0 ] && [ ! -z "${UPLOAD}" ]; then
         -l ${FN_NAME} \
         -t ${PORTNUM} \
         -h ${PUBLIC_IP} \
-        -O logs/${DUMP_EXEC}_transitions_${LOGFILESUFFIX}.log \
+        -O ${LOGDIR}/${DUMP_EXEC}_transitions_${LOGFILESUFFIX}.log \
         -M
 fi
