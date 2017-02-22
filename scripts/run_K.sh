@@ -90,7 +90,8 @@ if [ -z "$SSIM_ONLY" ]; then
         -T ${STATEPORT} \
         -R ${STATETHREADS} \
         -H ${PUBLIC_IP} \
-        -O ${LOGDIR}/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log
+        -O ${LOGDIR}/${XCENC_EXEC}_transitions_${LOGFILESUFFIX}.log \
+        -M
 fi
 
 if [ $? = 0 ] && [ ! -z "${UPLOAD}" ]; then
@@ -107,5 +108,6 @@ if [ $? = 0 ] && [ ! -z "${UPLOAD}" ]; then
         -l ${FN_NAME} \
         -t ${PORTNUM} \
         -h ${PUBLIC_IP} \
-        -O ${LOGDIR}/${DUMP_EXEC}_transitions_${LOGFILESUFFIX}.log
+        -O ${LOGDIR}/${DUMP_EXEC}_transitions_${LOGFILESUFFIX}.log \
+        -M
 fi
