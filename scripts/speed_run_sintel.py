@@ -6,8 +6,8 @@ import os
 import sys
 import time
 
-if len(sys.argv) != 3:
-    print("usage: {} <region> <region-index>".format(sys.argv[0]))
+if len(sys.argv) != 4:
+    print("usage: {} <region> <region-index> <repeat-count>".format(sys.argv[0]))
     sys.exit(1)
 
 def runcommand(command):
@@ -34,13 +34,13 @@ y_values = (
 
 region = sys.argv[1]
 idx = int(sys.argv[2])
+REPEAT_TIMES = int(sys.argv[3])
 
 if idx > 3:
     print("invalid region-index.")
     sys.exit(1)
 
 TOTAL_CHUNKS = 3552
-REPEAT_TIMES = 5
 RUN_K = "NOUPLOAD=1 REGION={region} FRAMES={num_frames} ~/excamera-results/scripts/run_K.sh {kfdist} {nworkers} {offset} {quality}"
 
 NUM_WORKERS = [880, 896, 880, 896]
