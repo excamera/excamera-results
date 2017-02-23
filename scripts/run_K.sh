@@ -5,10 +5,12 @@ set -e
 . ~/excamera-results/scripts/env_setup
 . ~/excamera-results/scripts/k_fn_name
 
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
-    echo "Usage: $0 kf_dist n_workers n_offset y_val"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; then
+    echo "Usage: $0 movie kf_dist n_workers n_offset y_val"
     exit 1
 fi
+
+MOVIE=$1; shift
 
 PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 MU_ROOT=/home/excamera/git/github.com/mu/src/lambdaize/
@@ -53,8 +55,10 @@ if [ -z "$SEVEN_FRAMES" ]; then
     XCENC_EXEC="xcenc"
     if [ "$NUM_FRAMES" -eq "6" ]; then
         DUMP_EXEC="dump_ssim"
-    else
+    elif [ "$NUM_FRAMES" -eq "12" ]; then
         DUMP_EXEC="split12_dump_ssim"
+    else
+        DUMP_EXEC="split_dump_ssim"
     fi
     FRAME_SWITCH=""
 else
@@ -64,7 +68,7 @@ else
     FRAME_SWITCH="-f $NUM_FRAMES"
 fi
 
-LOGDIR=$(printf "sintel-s%02d_k%02d-logs" ${NUM_FRAMES} ${KFDIST})
+LOGDIR=$(printf "${MOVIE}-s%02d_k%02d-logs" ${NUM_FRAMES} ${KFDIST})
 
 mkdir -p ${LOGDIR}
 LOGFILESUFFIX=k${KFDIST}_n${NWORKERS}_o${NOFFSET}_y${YVAL}_$(date +%F-%H:%M:%S)
@@ -81,7 +85,7 @@ if [ -z "$SSIM_ONLY" ]; then
         -X $((${NWORKERS} / 2)) \
         -Y ${YVAL} \
         -K ${KFDIST} \
-        -v sintel-4k-y4m"${VID_SUFFIX}" \
+        -v ${MOVIE}-4k-y4m"${VID_SUFFIX}" \
         -b excamera-${REGION} \
         -r ${REGION} \
         -l ${FN_NAME} \
@@ -102,7 +106,7 @@ if [ $? = 0 ] && [ ! -z "${UPLOAD}" ]; then
         -X $((${NWORKERS} / 2)) \
         -Y ${YVAL} \
         -K ${KFDIST} \
-        -v sintel-4k-y4m${FRAME_STR} \
+        -v ${MOVIE}-4k-y4m${FRAME_STR} \
         -b excamera-${REGION} \
         -r ${REGION} \
         -l ${FN_NAME} \

@@ -48,6 +48,8 @@ if movie == "sintel":
         NUM_WORKERS = [880, 896, 880, 896]
     elif num_frames == 12:
         NUM_WORKERS = [880, 896]
+    elif num_frames == 24:
+        NUM_WORKERS = [888]
 else:
     TOTAL_CHUNKS = 2936
 
@@ -55,8 +57,10 @@ else:
         NUM_WORKERS = [736, 736, 736, 728]
     elif num_frames == 12:
         NUM_WORKERS = [736, 732]
+    elif num_frames == 24:
+        NUM_WORKERS = [734]
 
-RUN_K = "NOUPLOAD=1 REGION={region} FRAMES={num_frames} ~/excamera-results/scripts/run_K{movie}.sh {kfdist} {nworkers} {offset} {quality}"
+RUN_K = "NOUPLOAD=1 REGION={region} FRAMES={num_frames} ~/excamera-results/scripts/run_K.sh {movie} {kfdist} {nworkers} {offset} {quality}"
 
 with open("run_log_%s" % time.time(), "w") as runlog:
     for K, y in y_values[num_frames]:
@@ -69,7 +73,7 @@ with open("run_log_%s" % time.time(), "w") as runlog:
                                              nworkers=NUM_WORKERS[idx],
                                              offset=sum(NUM_WORKERS[:idx]),
                                              quality=y,
-                                             movie='_tears' if movie == 'tears' else ''))
+                                             movie=movie))
 
             if retval == 0:
                 print("[OK] speed test ({}) for s{:02d}_k{:02d}".format(i, num_frames, K), file=runlog)
