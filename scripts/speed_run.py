@@ -12,7 +12,6 @@ if len(sys.argv) != 6:
 
 def runcommand(command):
     print(command)
-    return 1
     time.sleep(10)
     return os.system(command)
 
