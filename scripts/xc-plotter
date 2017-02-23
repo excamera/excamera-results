@@ -1,0 +1,108 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my $chunk_size = $ARGV[ 0 ];
+my $total_chunks = $ARGV[ 1 ];
+
+my $container_size_surplus = 32 + 12 * $chunk_size;
+
+sub db_to_raw_ssim {
+  my ( $db ) = @_;
+  return 1 - 10 ** ( - $db / 10 );
+}
+
+sub log10 {
+  my $n = shift;
+  return log($n)/log(10);
+}
+
+sub raw_ssim_to_db {
+  my ( $raw ) = @_;
+  return -10 * log10( 1 - $raw );
+}
+
+die unless abs( raw_ssim_to_db( db_to_raw_ssim( 20 ) ) - 20 ) < 1e-8;
+die unless abs( db_to_raw_ssim( raw_ssim_to_db( 0.97 ) ) - 0.97 ) < 1e-8;
+
+sub read_sizes_and_ssims {
+  my ( $fd ) = @_;
+
+  # VPX sizes
+  my $vpx_frame_sizes = 0;
+  for ( 1 .. $chunk_size ) {
+    my $line = <$fd>;
+    my ( $frame_size ) = $line =~ m{^\d+ (\d+)$};
+    die unless defined $frame_size;
+    $vpx_frame_sizes += $frame_size;
+  }
+
+  my $line = <$fd>;
+  my ( $vpx_chunk_size ) = $line =~ m{^Total (\d+)$};
+
+  die unless defined $vpx_chunk_size;
+  die unless $vpx_frame_sizes + $container_size_surplus == $vpx_chunk_size;
+
+  # VPX qualities
+  my $total_ssim = 0;
+  for ( 1 .. 6 ) {
+    my $line = <$fd>;
+    my ( $ssim_db ) = $line =~ m{^\d+: ([\d\.]+)};
+    my $raw_ssim = db_to_raw_ssim $ssim_db;
+    $total_ssim += $raw_ssim;
+  }
+
+  my $mean_ssim = $total_ssim / 6;
+
+  $line = <$fd>;
+  my ( $claimed_mean_db ) = $line =~ m{Total: ([\d\.]+)};
+  my $claimed_mean_raw_ssim = db_to_raw_ssim $claimed_mean_db;
+  die q{SSIM mismatch} if ( abs( $claimed_mean_raw_ssim - $mean_ssim ) > 1e-5 );
+
+  return ( $vpx_frame_sizes, $total_ssim, 6 );
+}
+
+my $vpx_total_size = 0;
+my $vpx_total_ssim = 0;
+my $vpx_total_frame_count = 0;
+
+my $xc_total_size = 0;
+my $xc_total_ssim = 0;
+my $xc_total_frame_count = 0;
+
+for my $chunk ( 0 .. ($total_chunks - 1) ) {
+  my $filename = sprintf q{%08d.txt}, $chunk;
+
+  print STDERR qq{Processing $filename... };
+  open FILE, $filename or die qq{Can't open $filename: $!};
+
+  my ( $frame_sizes, $total_ssim, $framecount ) = read_sizes_and_ssims( \*FILE );
+  die unless $framecount == 6;
+
+  $vpx_total_size += $frame_sizes;
+  $vpx_total_ssim += $total_ssim;
+  $vpx_total_frame_count += $framecount;
+
+  ( $frame_sizes, $total_ssim, $framecount ) = read_sizes_and_ssims( \*FILE );
+  die unless $framecount == 6;
+
+  $xc_total_size += $frame_sizes;
+  $xc_total_ssim += $total_ssim;
+  $xc_total_frame_count += $framecount;
+
+  close FILE or die qq{Can't close $filename: $!};
+  print STDERR qq{done.\n};
+}
+
+die unless $vpx_total_frame_count == $xc_total_frame_count;
+
+my $duration_s = $vpx_total_frame_count / 24.0;
+
+print qq{# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM\n};
+
+printf q{%.4f %.4f %.4f %.4f%s},
+  (($vpx_total_size / ($chunk_size / 6)) * 8 / 1.0e6) / $duration_s,
+  raw_ssim_to_db( $vpx_total_ssim / $vpx_total_frame_count ),
+  (($xc_total_size / ($chunk_size / 6)) * 8 / 1.0e6) / $duration_s,
+  raw_ssim_to_db( $xc_total_ssim / $xc_total_frame_count ),
+  qq{\n};
