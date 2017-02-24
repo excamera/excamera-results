@@ -1,0 +1,41 @@
+#!/usr/bin/perl -w
+use strict;
+
+my $tot_max = 0;
+my $tot_max_sq = 0;
+my $tot_all = 0;
+my $tot_all_sq = 0;
+my $num_runs = 0;
+my $num_actors = 0;
+
+while (<>) {
+    chomp;
+    my $fd;
+    open($fd, "<$_") or die "Cannot open file: $!";
+    my $max_time = 0;
+    while (<$fd>) {
+        chomp;
+        my @vals = split(/\),/);
+        my @finvals = grep {/FinalState/} @vals;
+        foreach my $val (@finvals) {
+            (my $end_time = $val) =~ s/^.*\(([0-9.]+),.*$/$1/;
+            $max_time = $end_time if ($end_time > $max_time);
+            $tot_all += $end_time;
+            $tot_all_sq += $end_time ** 2;
+            $num_actors++;
+        }
+    }
+    $num_runs++;
+    $tot_max += $max_time;
+    $tot_max_sq += $max_time ** 2;
+}
+
+my $mean_all = $tot_all / $num_actors;
+my $var_all = ($tot_all_sq - $tot_all ** 2 / $num_actors) / ($num_actors - 1);
+my $std_all = sqrt($var_all);
+
+my $mean_max = $tot_max / $num_runs;
+my $var_max = ($tot_max_sq - $tot_max ** 2 / $num_runs) / ($num_runs - 1);
+my $std_max = sqrt($var_max);
+
+print "$mean_all $std_all $mean_max $std_max\n";
