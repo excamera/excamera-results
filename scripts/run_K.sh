@@ -3,7 +3,10 @@
 set -e
 
 . ~/excamera-results/scripts/env_setup
-. ~/excamera-results/scripts/k_fn_name
+
+FN_NAME[6]=xc-enc_3cGUvto2
+FN_NAME[12]=xc-enc_3cGUvto2
+FN_NAME[24]=xc-enc_24frames
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; then
     echo "Usage: $0 movie kf_dist n_workers n_offset y_val"
@@ -88,7 +91,7 @@ if [ -z "$SSIM_ONLY" ]; then
         -v ${MOVIE}-4k-y4m"${VID_SUFFIX}" \
         -b excamera-${REGION} \
         -r ${REGION} \
-        -l ${FN_NAME} \
+        -l ${FN_NAME[NUM_FRAMES]} \
         -t ${PORTNUM} \
         -h ${PUBLIC_IP} \
         -T ${STATEPORT} \
@@ -109,7 +112,7 @@ if [ $? = 0 ] && [ ! -z "${UPLOAD}" ]; then
         -v ${MOVIE}-4k-y4m${FRAME_STR} \
         -b excamera-${REGION} \
         -r ${REGION} \
-        -l ${FN_NAME} \
+        -l ${FN_NAME[NUM_FRAMES]} \
         -t ${PORTNUM} \
         -h ${PUBLIC_IP} \
         -O ${LOGDIR}/${DUMP_EXEC}_transitions_${LOGFILESUFFIX}.log \

@@ -30,7 +30,7 @@ def generate_data_point(movie, s, k, target_measure="median"):
         if movie == "sintel":
             k_file_num = 8
         else:
-            k_file_num = 2
+            k_file_num = 16 if s == 6 else 2
 
     result_file = "{movie}-s{s:02d}_k{k:02d}.dat".format(movie=movie, s=s, k=k_file_num)
     result_file = os.path.join(RESULT_FOLDER, result_file)
