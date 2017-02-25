@@ -26,7 +26,7 @@ def generate_data_point(movie, s, k, target_measure="median"):
 
     k_file_num = k
 
-    if k == 1:
+    if k == 1 and s != 24:
         if movie == "sintel":
             k_file_num = 8
         else:
@@ -48,6 +48,8 @@ def generate_data_point(movie, s, k, target_measure="median"):
                 data += result_data[i+2].split(" ")[2:4]
 
     if not data:
+        print(result_file)
+        print(target_y)
         raise Exception("Could not find SSIM vs Bitrate data for this.")
 
     timing_file = "{movie}-s{s:02d}_k{k:02d}-total.stats".format(movie=movie, s=s, k=k)
@@ -65,8 +67,10 @@ def generate_data_point(movie, s, k, target_measure="median"):
     return data
 
 for movie in ["sintel", "tears"]:
-    for s in [6, 12]:
+    for s in [6, 12, 24]:
         for k in [1, 2, 4, 8, 16]:
+            if s == 24 and k > 8: continue
+
             d = generate_data_point(movie=movie, s=s, k=k, target_measure=TARGET_MEASURE)
 
             output_file = "{movie}-s{s:02d}_k{k:02d}.point".format(movie=movie, s=s, k=k)

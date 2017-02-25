@@ -15,6 +15,8 @@ sintel[06-3]="xcenc_transitions_k*_n896_o2656_*"
 sintel[12-0]="xcenc_transitions_k*_n880_o0_*"
 sintel[12-1]="xcenc_transitions_k*_n896_o880_*"
 
+sintel[24-0]="xcenc_transitions_k*_n888_o0_*"
+
 tears[06-0]="xcenc_transitions_k*_n736_o0_*"
 tears[06-1]="xcenc_transitions_k*_n736_o736_*"
 tears[06-2]="xcenc_transitions_k*_n736_o1472_*"
@@ -22,6 +24,8 @@ tears[06-3]="xcenc_transitions_k*_n728_o2208_*"
 
 tears[12-0]="xcenc_transitions_k*_n736_o0_*"
 tears[12-1]="xcenc_transitions_k*_n732_o736_*"
+
+tears[24-0]="xcenc_transitions_k*_n734_o0_*"
 
 ROOT_FOLDER=$1
 RES_FOLDER=$2
@@ -31,7 +35,7 @@ mkdir -p ${RES_FOLDER}/final
 
 for k in 01 02 04 08 16
 do
-  for s in 06 12
+  for s in 06 12 24
   do
     for movie in sintel tears
     do
@@ -53,7 +57,13 @@ do
           for i in 0 1
           do
             LOGFILE=$movie[${s}-${i}]
-            ./xc-time region ${FOLDER}/${!LOGFILE} > ${RES_FOLDER}/${movie}-s${s}_k${k}-${i}.stats
+            ./xc-time.py region ${FOLDER}/${!LOGFILE} > ${RES_FOLDER}/${movie}-s${s}_k${k}-${i}.stats
+          done
+        else
+          for i in 0
+          do
+            LOGFILE=$movie[${s}-${i}]
+            ./xc-time.py region ${FOLDER}/${!LOGFILE} > ${RES_FOLDER}/${movie}-s${s}_k${k}-${i}.stats
           done
         fi
 

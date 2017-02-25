@@ -63,5 +63,5 @@ if command == "region":
     print(json.dumps(process_repetitive_runs(sys.argv[2:])))
 elif command == "total":
     data = process_whole_run(sys.argv[2:])
-
+    print("# " + " ".join([str(x[0]) for x in data]))
     print(" ".join([str(x[1]) for x in data]))

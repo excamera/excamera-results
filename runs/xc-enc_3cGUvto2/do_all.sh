@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for k in 02 04 08 16
+for k in 01 #02 04 08 16
 do
-  for s in 06 12 24
+  for s in 24 #06 12 24
   do
     cd k${k}_s${s}
 
