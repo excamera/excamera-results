@@ -1,9 +1,11 @@
 #!/usr/bin/perl -w
 
 use strict;
+use File::Spec::Functions 'catfile';
 
-my $chunk_size = $ARGV[ 0 ];
-my $total_chunks = $ARGV[ 1 ];
+my $ssims_folder = $ARGV[ 0 ];
+my $chunk_size = $ARGV[ 1 ];
+my $total_chunks = $ARGV[ 2 ];
 my $ssim_count = 6;
 
 $ssim_count = 12 if $chunk_size == 24;
@@ -74,7 +76,7 @@ my $xc_total_ssim = 0;
 my $xc_total_frame_count = 0;
 
 for my $chunk ( 0 .. ($total_chunks - 1) ) {
-  my $filename = sprintf q{%08d.txt}, $chunk;
+  my $filename = catfile( $ssims_folder, sprintf( q{%08d.txt}, $chunk ) );
 
   # print STDERR qq{Processing $filename... };
   open FILE, $filename or die qq{Can't open $filename: $!};
@@ -111,8 +113,8 @@ my $duration_s = $vpx_total_frame_count / 24.0;
 print qq{# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM\n};
 
 printf q{%.4f %.4f %.4f %.4f%s},
-  (($vpx_total_size / ($chunk_size / 6)) * 8 / 1.0e6) / $duration_s,
+  (($vpx_total_size / ($chunk_size == 6 ? 1 : 2)) * 8 / 1.0e6) / $duration_s,
   raw_ssim_to_db( $vpx_total_ssim / $vpx_total_frame_count ),
-  (($xc_total_size / ($chunk_size / 6)) * 8 / 1.0e6) / $duration_s,
+  (($xc_total_size / ($chunk_size == 6 ? 1 : 2)) * 8 / 1.0e6) / $duration_s,
   raw_ssim_to_db( $xc_total_ssim / $xc_total_frame_count ),
   qq{\n};

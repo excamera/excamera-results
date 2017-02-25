@@ -1,6 +1,4 @@
-#!/bin/bash
-
-set -e
+#!/bin/bash -e
 
 if [ -z "$1" ] || [ -z "$2" ]; then
     echo "Usage: $0 <root-folder> <result-folder>"
