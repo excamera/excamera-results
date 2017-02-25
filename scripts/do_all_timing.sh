@@ -35,6 +35,11 @@ for k in 01 02 04 08 16
 do
   for s in 06 12 24
   do
+    if [ "$s" -gt "12" ] && [ "$k" -gt "04" ]; then
+      # We didn't process (12, 8) and (12, 16).
+      continue
+    fi
+    
     for movie in sintel tears
     do
       echo "Processing ${movie}-s${s}_k${k}..."

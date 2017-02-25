@@ -64,18 +64,19 @@ def generate_data_point(movie, s, k, target_measure="median"):
     timing_data = dict(zip(timing_data[0][2:].strip().split(" "), timing_data[1].strip().split(" ")))
     data += [timing_data[target_measure].strip()]
 
+    data += [movie, s, k, target_y]
+
     return data
 
 for movie in ["sintel", "tears"]:
     for s in [6, 12, 24]:
-        for k in [1, 2, 4, 8, 16]:
-            if s == 24 and k > 8: continue
+        output_file = "{movie}-s{s:02d}.points".format(movie=movie, s=s)
+        output_file = os.path.join(OUTPUT_FOLDER, output_file)
 
-            d = generate_data_point(movie=movie, s=s, k=k, target_measure=TARGET_MEASURE)
+        with open(output_file, "w") as fout:
+            for k in [1, 2, 4, 8, 16]:
+                if s == 24 and k > 4: continue
 
-            output_file = "{movie}-s{s:02d}_k{k:02d}.point".format(movie=movie, s=s, k=k)
-            output_file = os.path.join(OUTPUT_FOLDER, output_file)
-
-            with open(output_file, "w") as fout:
-                #fout.write("# bitrate (Mbits/s), mean SSIM (dB), {} time (s)\n".format(TARGET_MEASURE))
-                fout.write("{}\n".format("\t".join(d)))
+                d = generate_data_point(movie=movie, s=s, k=k, target_measure=TARGET_MEASURE)
+                #fout.write("# bitrate (Mbits/s), mean SSIM (dB), {} time (s), movie, s, k, y\n".format(TARGET_MEASURE))
+                fout.write("{}\n".format("\t".join([str(x) for x in d])))
