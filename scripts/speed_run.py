@@ -66,7 +66,8 @@ if __name__ == '__main__':
     REPEAT_TIMES = int(sys.argv[5])
 
     assert(movie == "sintel" or movie == "tears")
-    assert((num_frames == 6 and idx <= 3) or (num_frames == 12 and idx <= 1))
+    assert((num_frames == 6 and idx <= 3) or (num_frames == 12 and idx <= 1)
+                                          or (num_frames == 24 and idx == 0))
 
     if movie == "sintel":
         TOTAL_CHUNKS = 3552
