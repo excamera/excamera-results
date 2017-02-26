@@ -4,8 +4,8 @@ set -e
 
 . ~/excamera-results/scripts/env_setup
 
-FN_NAME[6]=xc-enc_3cGUvto2
-FN_NAME[12]=xc-enc_3cGUvto2
+FN_NAME[6]=xc-enc_14e88
+FN_NAME[12]=xc-enc_14e88
 FN_NAME[24]=xc-enc_24frames
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; then
