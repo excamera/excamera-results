@@ -14,18 +14,18 @@ def runcommand(command):
 y_values = {
     "sintel": {
         6: (
-            (1, 32),
-            (2, 22),
-            (4, 16),
-            (8, 12),
-            (16, 12),
+            #(1, [30, 32]),
+            #(2, [20, 22]),
+            #(4, [14, 16]),
+            #(8, [12, 14]),
+            (16, [10, 12]),
         ),
         12: (
             (1, 26),
             (2, 16),
             (4, 12),
-            (8, 12),
-            (16, 10),
+            (8, 11),
+            (16, 11),
         ),
         24: (
             (1, 22),
@@ -93,19 +93,20 @@ if __name__ == '__main__':
             NUM_WORKERS = [734]
 
     with open("run_log_%s" % time.time(), "w") as runlog:
-        for K, y in y_values[movie][num_frames]:
-            for i in range(REPEAT_TIMES):
-                print("Speed test ({}) for s{:02d}_k{:02d}".format(i, num_frames, K))
+        for K, ys in y_values[movie][num_frames]:
+            for y in ys:
+                for i in range(REPEAT_TIMES):
+                    print("Speed test ({}) for s{:02d}_k{:02d}-y{:02d}".format(i, num_frames, K, y))
 
-                retval = runcommand(RUN_K.format(region=region,
-                                                 kfdist=K,
-                                                 num_frames=num_frames,
-                                                 nworkers=NUM_WORKERS[idx],
-                                                 offset=sum(NUM_WORKERS[:idx]),
-                                                 quality=y,
-                                                 movie=movie))
+                    retval = runcommand(RUN_K.format(region=region,
+                                                     kfdist=K,
+                                                     num_frames=num_frames,
+                                                     nworkers=NUM_WORKERS[idx],
+                                                     offset=sum(NUM_WORKERS[:idx]),
+                                                     quality=y,
+                                                     movie=movie))
 
-                if retval == 0:
-                    print("[OK] speed test ({}) for s{:02d}_k{:02d}".format(i, num_frames, K), file=runlog)
-                else:
-                    print("[FAIL] speed test ({}) for s{:02d}_k{:02d}".format(i, num_frames, K), file=runlog)
+                    if retval == 0:
+                        print("[OK] speed test ({}) for s{:02d}_k{:02d}-y{:02d}".format(i, num_frames, K, y), file=runlog)
+                    else:
+                        print("[FAIL] speed test ({}) for s{:02d}_k{:02d}-y{:02d}".format(i, num_frames, K, y), file=runlog)
