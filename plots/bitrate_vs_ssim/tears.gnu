@@ -13,7 +13,7 @@
 # set terminal qt 0 font "Sans,9"
 # set output
 set terminal svg enhanced size 800, 650 background rgb 'white'
-set output 'sintel_ssim_vs_bitrate.svg'
+set output 'ssim_vs_bitrate_tears.svg'
 
 unset clip points
 set clip one
@@ -109,9 +109,10 @@ set mcbtics default
 set mrtics default
 set xtics border in scale 1,0.5 nomirror norotate  autojustify
 set xtics  norangelimit
-set xtics   (1.00000, 2.00000, 3.00000, 4.00000, 5.00000, 10.0000, 20.0000, 30.0000, 40.0000, 50.0000, 60.0000, 70.0000, 80.0000, 90.0000)
+set xtics   (1.00000, 2.00000, 3.00000, 4.00000, 5.00000, 10.0000, 20.0000, 30.0000, 40.0000, 50.0000, 60.0000, 70.0000, 90.0000)
 set ytics border in scale 1,0.5 nomirror norotate  autojustify
 set ytics  norangelimit autofreq
+set ytics (14, 15, 16, 17)
 set ztics border in scale 1,0.5 nomirror norotate  autojustify
 set ztics  norangelimit autofreq
 set xtics font "Arial, 24"
@@ -140,7 +141,7 @@ set urange [ * : * ] noreverse nowriteback
 set vrange [ * : * ] noreverse nowriteback
 set xlabel "average bitrate (Mbit/s)"
 set xlabel  font "Arial, 28" textcolor lt -1 norotate  offset 0, -0.6
-set xrange [ 5.00000 : 75.0000 ] noreverse nowriteback
+set xrange [ 5.00000 : 90.0000 ] noreverse nowriteback
 set x2label ""
 set x2label  font "" textcolor lt -1 norotate
 set x2range [ * : * ] noreverse nowriteback
@@ -150,7 +151,7 @@ set y2label ""
 set y2label  font "" textcolor lt -1 rotate by -270
 #set xrange [ 8500.000 : 400.000] noreverse nowriteback
 #set yrange [ 10.0 : 16.00 ] noreverse nowriteback
-set yrange [ 12.0 : * ]  noreverse nowriteback
+set yrange [ 14.0 : 17.0 ]  noreverse nowriteback
 #set xtics (100, 200, 300, 500, 700, 1000, 2000, 5000, 7000, 9500)
 set y2range [ * : * ] noreverse nowriteback
 set zlabel ""
@@ -185,5 +186,7 @@ set fontpath
 set psdir
 set fit brief errorvariables nocovariancevariables errorscaling prescale nowrap v5
 
-plot "../runs/vpxenc/tears/single_threaded.dat" using ($14*8.0/($15/24)/1e6):5, \
-     "../runs/vpxenc/tears/multi_threaded.dat" using ($14*8.0/($15/24)/1e6):5
+plot "../../runs/vpxenc/tears/single_threaded.dat" using ($14*8.0/($15/24)/1e6):5 lt rgb "#0072B2", \
+     "../../runs/vpxenc/tears/multi_threaded.dat" using ($14*8.0/($15/24)/1e6):5  lt rgb "#D55E00", \
+     "../../runs/xc-enc_3cGUvto2/results/tears-s06_k16.dat" using 1:2 lt rgb "#AE427E", \
+     "" using 3:4 lt rgb "#008C16"
