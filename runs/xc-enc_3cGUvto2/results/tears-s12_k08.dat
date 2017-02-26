@@ -19,12 +19,57 @@
 # y20
 # VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
 60.4392 16.5922 31.6787 15.6921
+# y22
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+57.1355 16.4144 28.3608 15.5482
+# y24
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+54.6039 16.2634 27.0388 15.4834
+# y26
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+52.1488 16.1306 24.5293 15.3683
+# y28
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+45.0680 15.9079 20.6594 15.1961
+# y30
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+42.5687 15.7272 18.6335 15.0529
 # y32
 # VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
 39.8146 15.5874 16.4884 14.9018
+# y34
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+36.4305 15.4535 14.6106 14.7617
+# y36
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+35.6208 15.3655 13.6716 14.6646
+# y38
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+29.6587 15.2358 11.8489 14.5332
+# y40
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+27.4182 15.1220 10.6668 14.4098
+# y42
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+22.2935 15.0003 9.1100 14.2684
 # y44
 # VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
 19.9511 14.8581 7.9437 14.1073
+# y46
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+17.0685 14.7502 7.0081 13.9729
+# y48
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+14.6062 14.6560 6.1828 13.8276
+# y50
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+12.2108 14.5144 5.4592 13.6848
+# y52
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+10.7999 14.4121 4.9089 13.5355
+# y54
+# VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
+9.4864 14.2807 4.4363 13.3744
 # y56
 # VPX bitrate (Mbits/s), VPX mean SSIM (dB), ExCamera bitrate, ExCamera mean SSIM
 8.5103 14.1538 4.0309 13.2032

@@ -37,8 +37,7 @@ def process_repetitive_runs(log_files):
         'min': min(all_runs),
         'max': max(all_runs),
         'avg': statistics.mean(all_runs),
-        'median': statistics.median(all_runs),
-        #'stdev': statistics.stdev(all_runs)
+        'median': statistics.median(all_runs)
     }
 
 def process_whole_run(stat_files):
@@ -49,11 +48,7 @@ def process_whole_run(stat_files):
             all_stats += [json.load(fin)['median']]
 
     return (
-        ('min', min(all_stats)),
         ('max', max(all_stats)),
-        ('avg', statistics.mean(all_stats)),
-        ('median', statistics.median(all_stats)),
-        #('stdev', statistics.stdev(all_stats)),
     )
 
 

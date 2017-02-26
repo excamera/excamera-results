@@ -39,7 +39,7 @@ do
       # We didn't process (12, 8) and (12, 16).
       continue
     fi
-    
+
     for movie in sintel tears
     do
       echo "Processing ${movie}-s${s}_k${k}..."
