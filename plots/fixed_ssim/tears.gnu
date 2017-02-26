@@ -147,7 +147,7 @@ set y2label ""
 set y2label  font "" textcolor lt -1 rotate by -270
 set xrange [ 0.01 : 100 ] noreverse nowriteback
 #set yrange [ 10.0 : 16.00 ] noreverse nowriteback
-set yrange [ 70 : 20 ] reverse
+set yrange [ 74 : 20 ] reverse
 #set xtics (100, 200, 300, 500, 700, 1000, 2000, 5000, 7000, 9500)
 set y2range [ * : * ] noreverse nowriteback
 set zlabel ""
@@ -182,8 +182,8 @@ set fontpath
 set psdir
 set fit brief errorvariables nocovariancevariables errorscaling prescale nowrap v5
 
-plot "../../runs/vpxenc/tears/fixed_ssim_mt.dat" using (734000/$3):($2*8.0/(17616/24)/1e6) with linespoints ls 1 ps 2 lt        rgb "#D55E00", \
-     "../../runs/vpxenc/tears/fixed_ssim_st.dat" using (734000/$3):($2*8.0/(17616/24)/1e6) with linespoints ls 2 ps 2 lt        rgb "#0072B2", \
-     "../../runs/xc-enc_14e88/points/tears-s06.points" using (734/$3):($2) with linespoints ls 3 ps 0.2 lw 5 lt rgb "#7E4CB6", \
-     "../../runs/xc-enc_14e88/points/tears-s12.points" using (734/$3):($2) with linespoints ls 4 ps 0.2 lw 5 lt rgb "#DF0000", \
-     "../../runs/xc-enc_14e88/points/tears-s24.points" using (734/$3):($2) with linespoints ls 5 ps 0.2 lw 5 lt rgb "#00B21C"
+plot "../../runs/vpxenc/tears/fixed_ssim_mt.dat" using (734000/$3):($2*8.0/(17616/24)/1e6) with linespoints ls 1 ps 3 lt        rgb "#D55E00", \
+     "../../runs/vpxenc/tears/fixed_ssim_st.dat" using (734000/$3):($2*8.0/(17616/24)/1e6) with linespoints ls 2 ps 3 lt        rgb "#0072B2", \
+     "../../runs/xc-enc_14e88/points/tears-s06.points" using (734/$3):($2) with lines ls 3lw 10 lt rgb "#008C16", \
+     "../../runs/xc-enc_14e88/points/tears-s12.points" using (734/$3):($2) with lines ls 4lw 10 lt rgb "#DF0000", \
+     "../../runs/xc-enc_14e88/points/tears-s24.points" using (734/$3):($2) with lines ls 5lw 10 lt rgb "#7E4CB6"

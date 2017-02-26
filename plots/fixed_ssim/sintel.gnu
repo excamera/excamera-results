@@ -184,6 +184,6 @@ set fit brief errorvariables nocovariancevariables errorscaling prescale nowrap 
 
 plot "../../runs/vpxenc/sintel/fixed_ssim_mt.dat" using (888000/$3):($2*8.0/(21312/24)/1e6) with linespoints ls 1 ps 3 lt        rgb "#D55E00", \
      "../../runs/vpxenc/sintel/fixed_ssim_st.dat" using (888000/$3):($2*8.0/(21312/24)/1e6) with linespoints ls 2 ps 3 lt        rgb "#0072B2", \
-     "../../runs/xc-enc_14e88/points/sintel-s06.points" using (888/$3):($2) with lines ls 3 lw 10 lt rgb "#7E4CB6", \
+     "../../runs/xc-enc_14e88/points/sintel-s06.points" using (888/$3):($2) with lines ls 3 lw 10 lt rgb "#008C16", \
      "../../runs/xc-enc_14e88/points/sintel-s12.points" using (888/$3):($2) with lines ls 4 lw 10 lt rgb "#DF0000", \
-     "../../runs/xc-enc_14e88/points/sintel-s24.points" using (888/$3):($2) with lines ls 5 lw 10 lt rgb "#00B21C"
+     "../../runs/xc-enc_14e88/points/sintel-s24.points" using (888/$3):($2) with lines ls 5 lw 10 lt rgb "#7E4CB6"
